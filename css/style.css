@@ -1,1 +1,145 @@
 @import url('https://fonts.googleapis.com/css2?family=Righteous&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+* {
+    font-family: 'Roboto';
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #fff;
+}
+
+.container{
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #E5E5E5;
+}
+.loginScreen{
+    z-index: 1;
+    background-color: #FFF;
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginScreen form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 45px;
+}
+
+.loginScreen form input[type=text]{
+    text-align: center;
+    width: 261px;
+    height: 54px;
+    border: 1px solid #D7D7D7;
+    border-radius: 4px;
+    font-size: 18px;
+    outline: none;
+}
+.loginScreen form input[type=submit]{
+    width: 109px;
+    height: 45px;
+    color: #696969;
+    margin-top: 15px;
+    background: #E7E7E7;
+    border-radius: 9px;
+    font-size: 18px;
+    border: none;
+}
+
+.loginScreen img{
+    position: absolute;
+    top: 72px;
+    width: 130px;
+}
+
+.hide{
+    display: none;
+}
+
+
+
+
+
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    padding: 0 22px;
+    width: 100%;
+    height: 80px;
+    left: 0px;
+    top: 0px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.05);    
+}
+
+header ion-icon{
+    font-size: 45px;
+}
+
+footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    padding: 0 17px;
+    width: 100%;
+    height: 80px;
+    left: 0px;
+    bottom: 0px;
+    background: #FFFFFF;
+    box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.05);
+}
+
+footer input[type=text]{
+    width: 145px;
+    height: 30px;    
+    font-size: 18px;
+    border:none;
+    outline: none;
+}
+footer input[type=text]::placeholder{
+    color: #000000;
+    font-style: italic;
+}
+
+footer ion-icon{
+    font-size: 26px;
+}
+
+main{
+    padding-top: 106px;
+}
+main li{
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    line-height: 20px;
+    padding:8px 10px;
+    color: black;
+    background-color: #DCDCDC;
+    border-radius: 2px;
+    margin-bottom: 4px;
+}
+
+main li:nth-child(2n){
+    background-color: #FAFAFA;
+}
+
+main li span{
+    color: #AAAAAA;
+    margin-right: 8px;
+}
