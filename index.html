@@ -11,51 +11,68 @@
 <body>
     <!-- Login Screen -->
     <div class="loginScreen ">
-            <img src="./images/logo 2.png" alt="logo Bate-Papo UOL"/>
-            <form>
-                <input type="text" placeholder="Digite seu nome">
-                <input type="button" value="Entrar" onclick="entrar()">
-            </form>
-        </div>
-        
-        <!-- Main Screen -->
-        <header>
-            <img src="./images/logo 1.png" alt="logo Bate-Papo UOL"/>
-            <ion-icon name="people" onclick="abrirMenu()"></ion-icon>
-        </header>
-        <main>
-            <ul>
-                <li data-identifier="message" class="status"><p><span>(09:21:45)</span>  João  entra na sala...</p></li>
-                <li data-identifier="message"><p><span>(09:22:28)</span>  João para Todos:  Bom dia</p></li>
-                <li data-identifier="message"><p><span>(09:22:38)</span>  Maria para João:  Oi João :)</p></li>
-                <li data-identifier="message" class="reservada"><p><span>(09:22:48)</span>  João reservadamente para Maria:  Oi gatinha quer tc?</p></li>
-                <li data-identifier="message" class="status"><p><span>(09:22:58)</span>  Maria  sai da sala...</p></li>
-            </ul>
-        </main>
-        <footer>
-            <input type="text" placeholder="Escreva aqui...">
-            <ion-icon name="paper-plane-outline" data-identifier="send-message"></ion-icon>
-        </footer>
-        
-        <div class="esmaecido hide">
-        </div>
-        
-        <nav class="menu" onclick="fecharMenu()">
-                <h2>Escolha um contato para enviar mensagem:</h2>
-                <ul>
-                    <li><ion-icon name="people"></ion-icon><p>Todos</p></li>
-                    <li><ion-icon name="person-circle"></ion-icon><p>João</p></li>
-                    <li><ion-icon name="person-circle"></ion-icon><p>Maria</p></li>
-                </ul>
-                <h2>Escolha a visibilidade:</h2>
-                <ul>
-                    <li><ion-icon name="lock-closed"></ion-icon><p>Público</p></li>
-                    <li><ion-icon name="lock-open"></ion-icon><p>Reservadamente</p></li>
-                </ul>
-        </nav>
-        
-        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-        <script src="./script.js"></script>
-    </body>
-    </html>
+        <img src="./images/logo 2.png" alt="logo Bate-Papo UOL"/>
+        <form>
+            <input class="nome" type="text" placeholder="Digite seu nome">
+            <input type="button" value="Entrar" onclick="entrar()">
+        </form>
+    </div>
+    
+    <!-- Main Screen -->
+    <header>
+        <img src="./images/logo 1.png" alt="logo Bate-Papo UOL"/>
+        <ion-icon name="people" onclick="abrirMenu()"></ion-icon>
+    </header>
+
+    <main>
+        <ul>
+            <li data-identifier="message" class="status"><p><span>(09:21:45)</span>João  entra na sala...</p></li>
+            <li data-identifier="message"><p><span>(09:22:28)</span>  João para Todos:  Bom dia</p></li>
+            <li data-identifier="message"><p><span>(09:22:38)</span>  Maria para João:  Oi João :)</p></li>
+            <li data-identifier="message" class="reservada"><p><span>(09:22:48)</span>  João reservadamente para Maria:  Oi gatinha quer tc?</p></li>
+            <li data-identifier="message" class="status"><p><span>(09:22:58)</span>  Maria  sai da sala...</p></li>
+        </ul>
+    </main>
+
+    <footer>
+        <input type="text" placeholder="Escreva aqui...">
+        <ion-icon name="paper-plane-outline" data-identifier="send-message" onclick="enviarMensagem()"></ion-icon>
+    </footer>
+    
+    <!-- Side Navigation -->
+    <div class="esmaecido hide" onclick="fecharMenu()">
+    </div>
+    <nav class="menu">
+        <h2>Escolha um contato para enviar mensagem:</h2>
+        <ul>
+            <li onclick="escolheDestinatario(this)" class="selecionado">
+                <ion-icon name="people"></ion-icon><p>Todos</p>
+                <ion-icon class="check" name="checkmark-sharp"></ion-icon>
+            </li>
+            <li onclick="escolheDestinatario(this)">
+                <ion-icon name="person-circle"></ion-icon><p>João</p>
+                <ion-icon class="check" name="checkmark-sharp"></ion-icon>
+            </li>
+            <li onclick="escolheDestinatario(this)">
+                <ion-icon name="person-circle"></ion-icon><p>Maria</p>
+                <ion-icon class="check" name="checkmark-sharp"></ion-icon>
+            </li>
+        </ul>
+        <h2>Escolha a visibilidade:</h2>
+        <ul>
+            <li class="selecionado" onclick="escolheVisibilidade(this)">
+                <ion-icon name="lock-closed"></ion-icon><p>Público</p>
+                <ion-icon class="check hide" name="checkmark-sharp"></ion-icon>
+            </li>
+            <li onclick="escolheVisibilidade(this)">
+                <ion-icon name="lock-open"></ion-icon><p>Reservadamente</p>
+                <ion-icon class="check hide" name="checkmark-sharp"></ion-icon>
+            </li>
+        </ul>
+    </nav>
+    
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="./script.js"></script>
+</body>
+</html>
