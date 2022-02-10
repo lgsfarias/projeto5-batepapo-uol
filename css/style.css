@@ -23,14 +23,14 @@ body{
     flex-direction: column;
 }
 
-.loginScreen form{
+.loginScreen .login{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
 
-.loginScreen form input[type=text]{
+.loginScreen .login input[type=text]{
     text-align: center;
     width: 261px;
     height: 54px;
@@ -39,7 +39,7 @@ body{
     font-size: 18px;
     outline: none;
 }
-.loginScreen form input[type=button]{
+.loginScreen .login input[type=button]{
     width: 109px;
     height: 45px;
     color: #696969;
@@ -54,6 +54,12 @@ body{
     position: fixed;
     top: 72px;
     width: 130px;
+}
+
+.loginScreen .mensagem{
+    position: fixed;
+    bottom: 72px;
+    font-family: 'Roboto';
 }
 
 /* Main Screen */
@@ -88,16 +94,27 @@ main li{
     line-height: 20px;
     padding:8px 10px;
     color: black;
-    background-color: #FFF;
     border-radius: 2px;
     margin-bottom: 4px;
+    
+}
+main li p{
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.message{
+    background-color: #FFF;
 }
 
 .status {
     background-color: #DCDCDC;
 }
-.reservadamente {
+.private_message {
     background-color: #FFDEDE;
+}
+b{
+    font-weight: bold;
 }
 
 main li span{

@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html lang="PT-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bate-Papo UOL</title>
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <!-- Login Screen -->
     <div class="loginScreen ">
         <img src="./images/logo 2.png" alt="logo Bate-Papo UOL"/>
-        <form>
+        <div class="login">
             <input class="nome" type="text" placeholder="Digite seu nome">
             <input type="button" value="Entrar" onclick="entrar()">
-        </form>
+        </div>
+        <div class="mensagem"><p>ola</p></div>
     </div>
     
     <!-- Main Screen -->
@@ -24,13 +26,9 @@
         <ion-icon name="people" onclick="abrirMenu()"></ion-icon>
     </header>
 
-    <main>
+    <main class="mensagens">
         <ul>
-            <li data-identifier="message" class="status"><p><span>(09:21:45)</span>João  entra na sala...</p></li>
-            <li data-identifier="message"><p><span>(09:22:28)</span>  João para Todos:  Bom dia</p></li>
-            <li data-identifier="message"><p><span>(09:22:38)</span>  Maria para João:  Oi João :)</p></li>
-            <li data-identifier="message" class="reservada"><p><span>(09:22:48)</span>  João reservadamente para Maria:  Oi gatinha quer tc?</p></li>
-            <li data-identifier="message" class="status"><p><span>(09:22:58)</span>  Maria  sai da sala...</p></li>
+            <!-- Será carregado dinamicamente via JS -->
         </ul>
     </main>
 
@@ -44,19 +42,8 @@
     </div>
     <nav class="menu">
         <h2>Escolha um contato para enviar mensagem:</h2>
-        <ul>
-            <li onclick="escolheDestinatario(this)" class="selecionado">
-                <ion-icon name="people"></ion-icon><p>Todos</p>
-                <ion-icon class="check" name="checkmark-sharp"></ion-icon>
-            </li>
-            <li onclick="escolheDestinatario(this)">
-                <ion-icon name="person-circle"></ion-icon><p>João</p>
-                <ion-icon class="check" name="checkmark-sharp"></ion-icon>
-            </li>
-            <li onclick="escolheDestinatario(this)">
-                <ion-icon name="person-circle"></ion-icon><p>Maria</p>
-                <ion-icon class="check" name="checkmark-sharp"></ion-icon>
-            </li>
+        <ul class="participantes">
+            <!--Será carregado dinamicamente via JS-->
         </ul>
         <h2>Escolha a visibilidade:</h2>
         <ul>

@@ -1,11 +1,60 @@
-let nome 
-let contato = "Todos"
-let visibilidade = ""
+let user = { name:"gustavo"};
+let contato = "Todos";
+//tipos de mensagem: status, message, private_message
+let type = "message";
+let mensagensNaTela = document.querySelector(".mensagens ul");
+let participantesNaTela = document.querySelector(".participantes")
+
 
 function entrar () {
+    user.name = document.querySelector(".nome").value
+    if (user.name){
+        const promise = axios.post("https://mock-api.driven.com.br/api/v4/uol/participants",user )
+        promise.then(validarUsername).catch(erroLogin);
+    }
+}
+
+function validarUsername(resposta){
     const loginScreen = document.querySelector(".loginScreen");
     loginScreen.classList.add("hide")
-    nome = document.querySelector(".nome").value
+    carregarMensagens();
+    carregaParticipantes()
+    setInterval(recarregarPagina,1000);
+}   
+
+function erroLogin(erro){
+    let nome = document.querySelector(".nome");
+    nome.value="";
+    document.querySelector(".loginScreen .mensagem p").innerHTML="Nome de usuário á ejstá sendo utilizado!"
+}
+
+function carregarMensagens () {
+    const promise = axios.get("https://mock-api.driven.com.br/api/v4/uol/messages");
+    promise.then(renderizarMensagens);
+}
+
+function renderizarMensagens (mensagens) {
+    mensagensNaTela.innerHTML="";
+    mensagens.data.forEach(adicionarMensagem);
+}
+
+function adicionarMensagem(mensagem){
+    // let mensagens = document.querySelector(".mensagens ul")
+    switch(mensagem.type) {
+        case "status":
+            mensagensNaTela.innerHTML+=`<li data-identifier="message" class=${mensagem.type}><p><span>(${mensagem.time})</span><b>${mensagem.from}</b> ${mensagem.text}</p></li>`
+            break;
+        case "message":
+            mensagensNaTela.innerHTML+=`<li data-identifier="message" class=${mensagem.type}><p><span>(${mensagem.time})</span><b>${mensagem.from}</b> para <b>${mensagem.to}</b>: ${mensagem.text}</p></li>`
+            break;
+        case "private_message":
+            mensagensNaTela.innerHTML+=`<li data-identifier="message" class=${mensagem.type}><p><span>(${mensagem.time})</span><b>${mensagem.from}</b> reservadamente para <b>${mensagem.to}</b>: ${mensagem.text}</p></li>`
+            break;
+        default:
+            // code block
+    }
+    const elementoQueQueroQueApareca = document.querySelector('.mensagens ul').lastElementChild;
+    elementoQueQueroQueApareca.scrollIntoView();
 }
 
 function abrirMenu () {
@@ -20,18 +69,64 @@ function fecharMenu () {
     menu.style.width="0"
 }
 
-function enviarMensagem () {
-    const lista = document.querySelector("ul")
-    let mensagem = document.querySelector("footer input").value
-    if (mensagem){
-        if (visibilidade=="público"){
-            visibilidade=""
+
+function carregaParticipantes(){
+    const promise = axios.get("https://mock-api.driven.com.br/api/v4/uol/participants");
+    promise.then(renderizaParticipantes)
+}
+
+function renderizaParticipantes (participantes) {
+    participantesNaTela.innerHTML=`<li onclick="escolheDestinatario(this)">
+    <ion-icon name="people"></ion-icon><p>Todos</p>
+    <ion-icon class="check" name="checkmark-sharp"></ion-icon>
+</li>`
+    participantes.data.forEach(adicionaParticipante)
+
+    let contatoOnline = false;
+    
+    for (participante of participantesNaTela.children){
+        if(participante.querySelector("p").innerHTML==contato){
+            participante.classList.add("selecionado")
+            contatoOnline=true
         }
-        let date = new Date;
-        let dataFormatada = `(${("0"+date.getHours()).slice(-2)}:${("0" + date.getMinutes()).slice(-2)}:${("0" + date.getSeconds()).slice(-2)})`
-        lista.innerHTML+= `<li class="${visibilidade}"><p><span>${dataFormatada}</span>${nome} ${visibilidade} para ${contato}: ${mensagem}</p></li>`
     }
+
+    if(!contatoOnline){
+        contato="Todos"
+        participantesNaTela.children[0].classList.add("selecionado")
+
+    }
+
+}
+
+function adicionaParticipante (participante) {
+        participantesNaTela.innerHTML+=`<li onclick="escolheDestinatario(this)">
+        <ion-icon name="person-circle"></ion-icon><p>${participante.name}</p>
+        <ion-icon class="check" name="checkmark-sharp"></ion-icon>
+    </li>`
+
+}
+
+function enviarMensagem () {
+
+    let mensagem = document.querySelector("footer input").value
+    if(mensagem){
+        let objetoMensagem = {
+            from: user.name,
+            to: contato,
+            text: mensagem,
+            type: type // ou "private_message" para o bônus
+        }
+        const promise = axios.post("https://mock-api.driven.com.br/api/v4/uol/messages",objetoMensagem)
+        promise.then(mensagemEnviada)
+    }    
+}
+
+function mensagemEnviada () {
     document.querySelector("footer input").value=""
+    const elementoQueQueroQueApareca = document.querySelector('.mensagens ul').lastElementChild;
+    elementoQueQueroQueApareca.scrollIntoView();
+    // console.log(elementoQueQueroQueApareca);
 }
 
 function escolheDestinatario (elemento) {
@@ -44,10 +139,39 @@ function escolheDestinatario (elemento) {
 }
 
 function escolheVisibilidade (elemento) {
-    visibilidade=elemento.getElementsByTagName("p")[0].innerHTML.toLowerCase()
+    let visibilidade=elemento.getElementsByTagName("p")[0].innerHTML.toLowerCase()
+    switch (visibilidade) {
+        case "público":
+            type="message"
+            break;
+        case "reservadamente":
+            type="private_message"
+            break;
+        default:
+            break;
+    }
     const selecionado = elemento.parentNode.querySelector(".selecionado")
     if(selecionado !== null) { // ! = = diferente de nulo
         selecionado.classList.remove("selecionado");
     }
     elemento.classList.add("selecionado");
+}
+
+document.querySelector('footer input[type="text"]').addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+      enviarMensagem()
+    }
+});
+
+document.querySelector('.nome').addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+      entrar()
+    }
+});
+
+function recarregarPagina(){
+    carregarMensagens()
+    carregaParticipantes()
+    const online = axios.post("https://mock-api.driven.com.br/api/v4/uol/status",user )
+    online.then()
 }
