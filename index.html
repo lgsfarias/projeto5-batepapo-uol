@@ -14,8 +14,8 @@
     <div class="loginScreen ">
         <img src="./images/logo 2.png" alt="logo Bate-Papo UOL"/>
         <div class="login">
-            <input class="nome" type="text" placeholder="Digite seu nome">
-            <input type="button" value="Entrar" onclick="entrar()">
+            <input class="nome" type="text" placeholder="Digite seu nome" data-identifier="enter-name">
+            <input type="button" value="Entrar" onclick="entrar()" data-identifier="start">
         </div>
         <!-- <div class="carregando hide">
             <img src="./images/loading-buffering.gif" alt="carregando">
@@ -51,12 +51,12 @@
         </ul>
         <h2>Escolha a visibilidade:</h2>
         <ul>
-            <li class="selecionado" onclick="escolheVisibilidade(this)">
-                <ion-icon name="lock-closed"></ion-icon><p>Público</p>
+            <li class="selecionado" onclick="escolheVisibilidade(this)" data-identifier="visibility">
+                <ion-icon name="lock-open"></ion-icon><p>Público</p>
                 <ion-icon class="check hide" name="checkmark-sharp"></ion-icon>
             </li>
-            <li onclick="escolheVisibilidade(this)">
-                <ion-icon name="lock-open"></ion-icon><p>Reservadamente</p>
+            <li onclick="escolheVisibilidade(this)" data-identifier="visibility">
+                <ion-icon name="lock-closed"></ion-icon><p>Reservadamente</p>
                 <ion-icon class="check hide" name="checkmark-sharp"></ion-icon>
             </li>
         </ul>

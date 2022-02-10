@@ -78,7 +78,7 @@ function carregaParticipantes(){
 }
 
 function renderizaParticipantes (participantes) {
-    participantesNaTela.innerHTML=`<li onclick="escolheDestinatario(this)">
+    participantesNaTela.innerHTML=`<li onclick="escolheDestinatario(this)" data-identifier="participant">
     <ion-icon name="people"></ion-icon><p>Todos</p>
     <ion-icon class="check" name="checkmark-sharp"></ion-icon>
 </li>`
@@ -103,7 +103,7 @@ function renderizaParticipantes (participantes) {
 
 function adicionaParticipante (participante) {
     if(participante.name!==user.name){
-        participantesNaTela.innerHTML+=`<li onclick="escolheDestinatario(this)">
+        participantesNaTela.innerHTML+=`<li onclick="escolheDestinatario(this)" data-identifier="participant">
         <ion-icon name="person-circle"></ion-icon><p>${participante.name}</p>
         <ion-icon class="check" name="checkmark-sharp"></ion-icon>
     </li>`
@@ -121,7 +121,12 @@ function enviarMensagem () {
         }
         const promise = axios.post("https://mock-api.driven.com.br/api/v4/uol/messages",objetoMensagem)
         promise.then(mensagemEnviada)
+        promise.catch(mensagemErro)
     }    
+}
+
+function mensagemErro(){
+    window.location.reload()
 }
 
 function mensagemEnviada () {
