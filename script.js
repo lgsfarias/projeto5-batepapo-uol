@@ -19,13 +19,13 @@ function validarUsername(resposta){
     loginScreen.classList.add("hide")
     carregarMensagens();
     carregaParticipantes()
-    setInterval(recarregarPagina,1000);
+    setInterval(recarregarPagina,3000);
 }   
 
 function erroLogin(erro){
     let nome = document.querySelector(".nome");
     nome.value="";
-    document.querySelector(".loginScreen .mensagem p").innerHTML="Nome de usuário á ejstá sendo utilizado!"
+    document.querySelector(".loginScreen .mensagem p").innerHTML="Nome de usuário já está sendo utilizado!"
 }
 
 function carregarMensagens () {
@@ -48,8 +48,10 @@ function adicionarMensagem(mensagem){
             mensagensNaTela.innerHTML+=`<li data-identifier="message" class=${mensagem.type}><p><span>(${mensagem.time})</span><b>${mensagem.from}</b> para <b>${mensagem.to}</b>: ${mensagem.text}</p></li>`
             break;
         case "private_message":
-            mensagensNaTela.innerHTML+=`<li data-identifier="message" class=${mensagem.type}><p><span>(${mensagem.time})</span><b>${mensagem.from}</b> reservadamente para <b>${mensagem.to}</b>: ${mensagem.text}</p></li>`
-            break;
+            if(mensagem.to===user.name||mensagem.from===user.name){
+                mensagensNaTela.innerHTML+=`<li data-identifier="message" class=${mensagem.type}><p><span>(${mensagem.time})</span><b>${mensagem.from}</b> reservadamente para <b>${mensagem.to}</b>: ${mensagem.text}</p></li>`
+                break;
+            }
         default:
             // code block
     }
@@ -100,15 +102,15 @@ function renderizaParticipantes (participantes) {
 }
 
 function adicionaParticipante (participante) {
+    if(participante.name!==user.name){
         participantesNaTela.innerHTML+=`<li onclick="escolheDestinatario(this)">
         <ion-icon name="person-circle"></ion-icon><p>${participante.name}</p>
         <ion-icon class="check" name="checkmark-sharp"></ion-icon>
     </li>`
-
+    }
 }
 
 function enviarMensagem () {
-
     let mensagem = document.querySelector("footer input").value
     if(mensagem){
         let objetoMensagem = {
@@ -124,9 +126,9 @@ function enviarMensagem () {
 
 function mensagemEnviada () {
     document.querySelector("footer input").value=""
-    const elementoQueQueroQueApareca = document.querySelector('.mensagens ul').lastElementChild;
-    elementoQueQueroQueApareca.scrollIntoView();
-    // console.log(elementoQueQueroQueApareca);
+    carregarMensagens()
+    // const elementoQueQueroQueApareca = document.querySelector('.mensagens ul').lastElementChild;
+    // elementoQueQueroQueApareca.scrollIntoView();
 }
 
 function escolheDestinatario (elemento) {

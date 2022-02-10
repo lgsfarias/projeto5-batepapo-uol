@@ -50,7 +50,7 @@ body{
     border: none;
 }
 
-.loginScreen img{
+.loginScreen >img{
     position: fixed;
     top: 72px;
     width: 130px;
@@ -61,6 +61,25 @@ body{
     bottom: 72px;
     font-family: 'Roboto';
 }
+
+.loginScreen .carregando {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.loginScreen .carregando img {
+    width: 130px;
+}
+
+.loginScreen .carregando p {
+    font-family: 'Roboto';
+    font-size: 25px;
+    margin-top: 20px;
+}
+
+
 
 /* Main Screen */
 header{
@@ -126,6 +145,7 @@ main li span{
     position: absolute;
     right: 0;
     display: none;
+    color: green;
 }
 
 .selecionado .check{
@@ -204,6 +224,12 @@ nav li{
 nav li ion-icon{
     margin-right: 7px;
     font-size: 25px;
+}
+
+nav li p{
+    max-width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* Another classes */
