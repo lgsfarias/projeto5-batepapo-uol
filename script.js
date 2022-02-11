@@ -5,6 +5,9 @@ let visibilidade = "Público";
 let mensagensNaTela = document.querySelector(".mensagens ul");
 let participantesNaTela = document.querySelector(".participantes")
 
+window.onload = function() {
+    document.querySelector(".nome").focus();
+  };
 
 function entrar () {
     user.name = document.querySelector(".nome").value
@@ -17,6 +20,7 @@ function entrar () {
 function validarUsername(resposta){
     const loginScreen = document.querySelector(".loginScreen");
     loginScreen.classList.add("hide")
+    document.querySelector('footer input[type="text"]').focus()
     carregarMensagens();
     carregaParticipantes()
     setInterval(recarregarPagina,3000);
@@ -69,6 +73,7 @@ function fecharMenu () {
     const menu = document.querySelector(".menu ");
     document.querySelector(".esmaecido").classList.add("hide")    
     menu.style.width="0"
+    document.querySelector('footer input[type="text"]').focus()
 }
 
 
