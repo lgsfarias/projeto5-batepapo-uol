@@ -1,7 +1,7 @@
 let user = { name:"gustavo"};
 let contato = "Todos";
-//tipos de mensagem: status, message, private_message
-let type = "message";
+let type = "message"; //tipos de mensagem: status, message, private_message
+let visibilidade = "Público";
 let mensagensNaTela = document.querySelector(".mensagens ul");
 let participantesNaTela = document.querySelector(".participantes")
 
@@ -96,6 +96,8 @@ function renderizaParticipantes (participantes) {
     if(!contatoOnline){
         contato="Todos"
         participantesNaTela.children[0].classList.add("selecionado")
+        const resumo = document.querySelector("footer p");
+        resumo.innerHTML=`Enviando para ${contato} (${visibilidade})`
 
     }
 
@@ -143,15 +145,17 @@ function escolheDestinatario (elemento) {
         selecionado.classList.remove("selecionado");
     }
     elemento.classList.add("selecionado");
+    const resumo = document.querySelector('footer p');
+    resumo.innerHTML=`Enviando para ${contato} (${visibilidade})`
 }
 
 function escolheVisibilidade (elemento) {
-    let visibilidade=elemento.getElementsByTagName("p")[0].innerHTML.toLowerCase()
+    visibilidade=elemento.getElementsByTagName("p")[0].innerHTML
     switch (visibilidade) {
-        case "público":
+        case "Público":
             type="message"
             break;
-        case "reservadamente":
+        case "Reservadamente":
             type="private_message"
             break;
         default:
@@ -162,6 +166,8 @@ function escolheVisibilidade (elemento) {
         selecionado.classList.remove("selecionado");
     }
     elemento.classList.add("selecionado");
+    const resumo = document.querySelector("footer p");
+    resumo.innerHTML=`Enviando para ${contato} (${visibilidade})`
 }
 
 document.querySelector('footer input[type="text"]').addEventListener('keypress', function (e) {

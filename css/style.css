@@ -176,6 +176,16 @@ footer ion-icon{
     cursor: pointer;
 }
 
+footer div{
+    display: flex;
+    flex-direction: column;
+}
+
+footer p{
+    color:black;
+    font-family: 'Roboto';
+    font-size: 12px;
+}
 /* Side Navigation */
 nav{
     z-index: 3;
